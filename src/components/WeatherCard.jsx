@@ -3,7 +3,9 @@ import {
   Eye,
   Gauge,
   MapPin,
-  Wind
+  Wind,
+  ThermometerSun,
+  ThermometerSnowflake
 } from "lucide-react";
 import { getGradient, getWeatherDescription, getWeatherEmoji } from "./utils";
 
@@ -22,9 +24,9 @@ export default function WeatherCard({
 }) {
   return (
     <div
-      className={`rounded-3xl p-6 max-w-[800px] ${getGradient(
+      className={`rounded-3xl p-6 w-full ${getGradient(
         weatherCode
-      )} shadow-2xl`}
+      )} shadow-2xl bg-slate-900`}
     >
       <div className="flex items-start justify-between mb-6">
         <div>
@@ -33,7 +35,7 @@ export default function WeatherCard({
             <span className="text-sm font-medium">Current Location</span>
           </div>
           <h2 className="text-4xl font-bold mb-1">{name}</h2>
-          <p className="text-white/90 text-lg">
+          <p className="text-white/90 text-lg text-start">
             {getWeatherDescription(weatherCode)}
           </p>
         </div>
@@ -77,15 +79,32 @@ export default function WeatherCard({
           </div>
           <div className="text-2xl font-semibold">{pressure} hPa</div>
         </div>
+
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+          <div className="flex items-center gap-2 text-white/70 mb-2">
+            <ThermometerSun className="w-4 h-4" />
+            <span className="text-xs uppercase tracking-wide">High</span>
+          </div>
+          <div className="text-2xl font-semibold">{maxTemp}°</div>
+        </div>
+
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+          <div className="flex items-center gap-2 text-white/70 mb-2">
+            <ThermometerSnowflake className="w-4 h-4" />
+            <span className="text-xs uppercase tracking-wide">Low</span>
+          </div>
+          <div className="text-2xl font-semibold">{minTemp}°</div>
+        </div>
+
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+          <div className="flex items-center gap-2 text-white/70 mb-2">
+            <ThermometerSnowflake className="w-4 h-4" />
+            <span className="text-xs uppercase tracking-wide">Feels Like</span>
+          </div>
+          <div className="text-2xl font-semibold">{feelsLike}°</div>
+        </div>
       </div>
 
-      <div className="mt-6 flex items-center gap-4 text-lg">
-        <span className="text-white/90">Feels like {feelsLike}°</span>
-        <span className="text-white/70">•</span>
-        <span className="text-white/90">H: {maxTemp}°</span>
-        <span className="text-white/70">•</span>
-        <span className="text-white/90">L: {minTemp}°</span>
-      </div>
     </div>
   );
 }
