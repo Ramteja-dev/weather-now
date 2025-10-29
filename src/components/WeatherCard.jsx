@@ -1,0 +1,91 @@
+import {
+  Droplets,
+  Eye,
+  Gauge,
+  MapPin,
+  Wind
+} from "lucide-react";
+import { getGradient, getWeatherDescription, getWeatherEmoji } from "./utils";
+
+export default function WeatherCard({
+  weatherDescription,
+  name,
+  weatherCode,
+  temperature,
+  windSpeed,
+  humidity,
+  visibility,
+  pressure,
+  feelsLike,
+  maxTemp,
+  minTemp
+}) {
+  return (
+    <div
+      className={`rounded-3xl p-6 max-w-[800px] ${getGradient(
+        weatherCode
+      )} shadow-2xl`}
+    >
+      <div className="flex items-start justify-between mb-6">
+        <div>
+          <div className="flex items-center gap-2 text-white/80 mb-2">
+            <MapPin className="w-4 h-4" />
+            <span className="text-sm font-medium">Current Location</span>
+          </div>
+          <h2 className="text-4xl font-bold mb-1">{name}</h2>
+          <p className="text-white/90 text-lg">
+            {getWeatherDescription(weatherCode)}
+          </p>
+        </div>
+        <div className="text-7xl">{getWeatherEmoji(weatherCode)}</div>
+      </div>
+
+      <div className="flex items-end gap-2 mb-8">
+        <div className="text-8xl font-bold">{temperature}°</div>
+        <div className="text-3xl font-light mb-3 opacity-80">C</div>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+          <div className="flex items-center gap-2 text-white/70 mb-2">
+            <Wind className="w-4 h-4" />
+            <span className="text-xs uppercase tracking-wide">Wind</span>
+          </div>
+          <div className="text-2xl font-semibold">{windSpeed} km/h</div>
+        </div>
+
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+          <div className="flex items-center gap-2 text-white/70 mb-2">
+            <Droplets className="w-4 h-4" />
+            <span className="text-xs uppercase tracking-wide">Humidity</span>
+          </div>
+          <div className="text-2xl font-semibold">{humidity}%</div>
+        </div>
+
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+          <div className="flex items-center gap-2 text-white/70 mb-2">
+            <Eye className="w-4 h-4" />
+            <span className="text-xs uppercase tracking-wide">Visibility</span>
+          </div>
+          <div className="text-2xl font-semibold">{visibility} km</div>
+        </div>
+
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+          <div className="flex items-center gap-2 text-white/70 mb-2">
+            <Gauge className="w-4 h-4" />
+            <span className="text-xs uppercase tracking-wide">Pressure</span>
+          </div>
+          <div className="text-2xl font-semibold">{pressure} hPa</div>
+        </div>
+      </div>
+
+      <div className="mt-6 flex items-center gap-4 text-lg">
+        <span className="text-white/90">Feels like {feelsLike}°</span>
+        <span className="text-white/70">•</span>
+        <span className="text-white/90">H: {maxTemp}°</span>
+        <span className="text-white/70">•</span>
+        <span className="text-white/90">L: {minTemp}°</span>
+      </div>
+    </div>
+  );
+}
