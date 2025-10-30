@@ -34,12 +34,6 @@ export default function FavouriteCities({
               <p className="text-slate-400 mb-6">
                 Add cities to quickly check their weather
               </p>
-              <button
-                onClick={() => setShowSearch(true)}
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl transition-all duration-200 font-medium"
-              >
-                Add Your First City
-              </button>
             </div>
           </div>
         )}

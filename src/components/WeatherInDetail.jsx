@@ -89,7 +89,7 @@ export const WeatherDetailModal = ({ isOpen, onClose, lat, lon, name }) => {
         {/* Header */}
         <div className="p-6 border-b border-slate-800 flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold text-white mb-1 text-start capitalize">{name}</h2>
+            <h2 className="text-xl font-bold text-white mb-1 text-start capitalize">{name}</h2>
             <p className="text-slate-400 text-start">Detailed Weather Report</p>
           </div>
           <button
