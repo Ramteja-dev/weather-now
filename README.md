@@ -80,7 +80,5 @@ The app requires the following browser permissions:
 
 
 ## 👨‍💻 Author
-
-Your Name
 - GitHub: [Ramteja-dev](https://github.com/Ramteja-dev)
 - Email: ramt24599@gmail.com
