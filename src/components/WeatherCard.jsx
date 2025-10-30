@@ -34,8 +34,8 @@ export default function WeatherCard({
             <MapPin className="w-4 h-4" />
             <span className="text-sm font-medium">Current Location</span>
           </div>
-          <h2 className="text-4xl font-bold mb-1">{name}</h2>
-          <p className="text-white/90 text-lg text-start">
+          <h2 className="text-3xl md:text-4xl font-bold mb-1 text-start">{name}</h2>
+          <p className="text-white/90 text-lg text-start mt-2">
             {getWeatherDescription(weatherCode)}
           </p>
         </div>

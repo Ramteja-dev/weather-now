@@ -124,7 +124,7 @@ const WeatherApp = () => {
                 <span className="text-2xl">🌤️</span>
               </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                Weather
+                Weather Now
               </h1>
             </div>
 
@@ -142,8 +142,8 @@ const WeatherApp = () => {
       <SearchCities favorites={favorites} setFavorites={setFavorites} showSearch={showSearch} setShowSearch={setShowSearch}/>
 
       <main className="px-4 sm:px-6 lg:px-8 py-8 space-y-5">
-      <div className="flex gap-10 justify-between">
-      <div className="flex flex-col gap-3 w-4/6">
+      <div className="flex md:flex-row flex-col gap-10 justify-between">
+      <div className="flex flex-col gap-3 md:w-4/6">
         {currentWeather && (
           <WeatherCard
             weatherCode={currentWeather.weatherCode}
@@ -159,7 +159,7 @@ const WeatherApp = () => {
           />
         )}
       </div>
-      <div className="w-2/6">
+      <div className="md:w-2/6">
         <PopularCities />
       </div>
       </div>
