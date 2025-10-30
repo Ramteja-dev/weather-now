@@ -58,7 +58,7 @@ const PopularCityWeatherCard = ({
         <span className="text-3xl mb-1">
           {getWeatherEmoji(weatherData.weatherCode)}
         </span>
-        <h4 className="text-base font-semibold capitalize">
+        <h4 className="text-base font-semibold capitalize text-start">
           {weatherData.name || name}
           <p className="text-slate-400 text-xs text-start">
           {getWeatherDescription(weatherData.weatherCode)}
