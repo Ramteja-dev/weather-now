@@ -52,7 +52,7 @@ export const fetchWeather = async (lat, lon, name) => {
   };
 
 export const POPULAR_CITIES = [
-  { name: "New York", lat: "40.7128", log: "-74.0060" },
+  { name: "Mumbai", lat: "18.9582", log: "72.8321" },
   { name: "London", lat: "51.5074", log: "-0.1278" },
   { name: "Tokyo", lat: "35.6895", log: "139.6917" },
   { name: "Paris", lat: "48.8566", log: "2.3522" },

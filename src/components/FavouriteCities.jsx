@@ -64,10 +64,10 @@ const FavoriteCityWeatherCard = ({
 
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h4 className="text-lg font-semibold mb-1 capitalize">
+          <h4 className="text-lg font-semibold mb-1 capitalize text-start">
             {weatherData.name}
           </h4>
-          <p className="text-slate-400 text-sm">
+          <p className="text-slate-400 text-sm text-start">
             {getWeatherDescription(weatherData.weatherCode)}
           </p>
         </div>

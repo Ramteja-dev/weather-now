@@ -10,7 +10,7 @@ const WeatherApp = () => {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [isWeatherInDetailOpen, setIsWeatherInDetailOpen] = useState(false);
-    const [currentCord, setCurrentCords] = useState({
+  const [currentCord, setCurrentCords] = useState({
     lat: undefined,
     lon: undefined,
     name: undefined,
@@ -27,7 +27,9 @@ const WeatherApp = () => {
     loadFavorites();
     getCurrentLocationWeather();
   }, []);
-
+  useEffect(() => {
+    getLocationName(currentCord.lat, currentCord.lon);
+  }, [currentCord]);
   const loadFavorites = () => {
     const saved = localStorage.getItem("weatherFavorites");
     if (saved) {
@@ -53,7 +55,10 @@ const WeatherApp = () => {
         async (position) => {
           const { latitude, longitude } = position.coords;
           await fetchWeather(latitude, longitude, "Current Location", true);
-          setCurrentCords({ lat: latitude, lon: longitude, name: "Current Location"})
+          setCurrentCords({
+            lat: latitude,
+            lon: longitude,
+          });
           setLoading(false);
         },
         () => {
@@ -96,6 +101,25 @@ const WeatherApp = () => {
     } catch (err) {
       console.error("Error fetching weather:", err);
       return null;
+    }
+  };
+
+  const getLocationName = async (lat, lon) => {
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${currentCord.lat}&lon=${currentCord.lon}&format=json&accept-language=en`
+      );
+      const data = await res.json();
+      setCurrentCords((prev) => ({
+        ...prev,
+        name:
+          data?.address?.city ||
+          data?.address?.town ||
+          data?.address?.village ||
+          data?.display_name,
+      }));
+    } catch (err) {
+      console.error("Failed to fetch location name:", err);
     }
   };
 
@@ -152,7 +176,7 @@ const WeatherApp = () => {
             {currentWeather && (
               <WeatherCard
                 weatherCode={currentWeather.weatherCode}
-                name={currentWeather.name}
+                name={currentCord.name}
                 temperature={currentWeather.temperature}
                 windSpeed={currentWeather.windSpeed}
                 humidity={currentWeather.humidity}
@@ -163,7 +187,7 @@ const WeatherApp = () => {
                 minTemp={currentWeather.minTemp}
                 onClick={() => {
                   setSelectedCords(currentCord);
-                  setIsWeatherInDetailOpen(true)
+                  setIsWeatherInDetailOpen(true);
                 }}
               />
             )}

@@ -1,6 +1,9 @@
+## ✨ Website URL
+https://weather-now-xi-one.vercel.app/
+
 # 🌤️ Modern Weather Application
 
-A beautiful, modern weather application built with React and Tailwind CSS that provides real-time weather information and detailed forecasts using the Open-Meteo API.
+A Modern weather application built with React and Tailwind CSS that provides real-time weather information and detailed forecasts using the Open-Meteo API.
 
 ## ✨ Features
 

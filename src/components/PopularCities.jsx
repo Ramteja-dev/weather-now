@@ -60,10 +60,10 @@ const PopularCityWeatherCard = ({
         </span>
         <h4 className="text-base font-semibold capitalize">
           {weatherData.name || name}
-        </h4>
-        <p className="text-slate-400 text-xs">
+          <p className="text-slate-400 text-xs text-start">
           {getWeatherDescription(weatherData.weatherCode)}
         </p>
+        </h4>
       </div>
 
       {/* Additional Info */}
@@ -80,8 +80,9 @@ const PopularCityWeatherCard = ({
 
       {/* Temperature */}
       <div className="flex items-center mb-3">
-        <span className="text-4xl font-bold">{weatherData.temperature}°</span>
-        <span className="text-4xl font-bold">C</span>
+        <span className="text-3xl font-semibold">{isNaN(weatherData.temperature) || !weatherData.temperature ? "--" : weatherData.temperature}</span>
+        {!(isNaN(weatherData.temperature) || !weatherData.temperature) && <span className="text-3xl font-bold">°C</span>}
+        
       </div>
     </div>
   );

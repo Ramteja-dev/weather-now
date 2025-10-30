@@ -26,17 +26,17 @@ export default function WeatherCard({
   return (
     <div
       onClick={() => { onClick() }}
-      className={`rounded-3xl p-6 w-full ${getGradient(
+      className={`rounded-3xl p-8 py-12 w-full ${getGradient(
         weatherCode
       )} shadow-2xl bg-slate-900 hover:cursor-pointer`}
     >
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-2 text-white/80 mb-2">
             <MapPin className="w-4 h-4" />
             <span className="text-sm font-medium">Current Location</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-1 text-start">{name}</h2>
+          {name && <h2 className="text-3xl md:text-4xl font-bold mb-1 text-start">{name}</h2>}
           <p className="text-white/90 text-lg text-start mt-2">
             {getWeatherDescription(weatherCode)}
           </p>
@@ -45,7 +45,7 @@ export default function WeatherCard({
       </div>
 
       <div className="flex items-end gap-2 mb-8">
-        <div className="text-8xl font-bold">{temperature}°</div>
+        <div className="text-7xl font-bold">{temperature}°</div>
         <div className="text-3xl font-light mb-3 opacity-80">C</div>
       </div>
 
