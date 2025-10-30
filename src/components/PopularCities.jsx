@@ -7,7 +7,7 @@ import {
   POPULAR_CITIES,
 } from "./utils";
 
-export default function PopularCities({ favorites, removeFromFavorites }) {
+export default function PopularCities({ onClick }) {
   console.log(POPULAR_CITIES);
   return (
     <div className="w-full">
@@ -23,7 +23,7 @@ export default function PopularCities({ favorites, removeFromFavorites }) {
             lon={fav.log}
             name={fav.name}
             key={idx}
-            removeFromFavorites={() => removeFromFavorites(idx)}
+            onClick={onClick}
           />
         ))}
       </div>
@@ -31,7 +31,12 @@ export default function PopularCities({ favorites, removeFromFavorites }) {
   );
 }
 
-const PopularCityWeatherCard = ({ lat, lon, name, removeFromFavorites }) => {
+const PopularCityWeatherCard = ({
+  lat,
+  lon,
+  name,
+  onClick,
+}) => {
   const [weatherData, setWeather] = useState({});
 
   const fetchWeatherData = async () => {
@@ -44,7 +49,10 @@ const PopularCityWeatherCard = ({ lat, lon, name, removeFromFavorites }) => {
   }, []);
 
   return (
-    <div className="relative flex items-center justify-between bg-slate-900 border border-slate-800 rounded-2xl p-4 w-full h-24 hover:border-slate-700 transition-all duration-200 group">
+    <div
+      onClick={() => onClick({ lat, lon, name })}
+      className="relative flex items-center justify-between bg-slate-900 border border-slate-800 rounded-2xl p-4 w-full h-24 hover:border-slate-700 transition-all duration-200 group"
+    >
       {/* City Name & Emoji */}
       <div className="flex items-center text-center mb-3 gap-3">
         <span className="text-3xl mb-1">

@@ -20,13 +20,15 @@ export default function WeatherCard({
   pressure,
   feelsLike,
   maxTemp,
-  minTemp
+  minTemp,
+  onClick
 }) {
   return (
     <div
+      onClick={() => { onClick() }}
       className={`rounded-3xl p-6 w-full ${getGradient(
         weatherCode
-      )} shadow-2xl bg-slate-900`}
+      )} shadow-2xl bg-slate-900 hover:cursor-pointer`}
     >
       <div className="flex items-start justify-between mb-6">
         <div>

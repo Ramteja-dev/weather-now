@@ -1,16 +1,25 @@
-import {
-  Loader2,
-  Search
-} from "lucide-react";
+import { Loader2, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import FavouriteCities from "./FavouriteCities";
 import SearchCities from "./SearchCities";
 import WeatherCard from "./WeatherCard";
 import PopularCities from "./PopularCities";
+import { WeatherDetailModal } from "./WeatherInDetail";
 
 const WeatherApp = () => {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [favorites, setFavorites] = useState([]);
+  const [isWeatherInDetailOpen, setIsWeatherInDetailOpen] = useState(false);
+    const [currentCord, setCurrentCords] = useState({
+    lat: undefined,
+    lon: undefined,
+    name: undefined,
+  });
+  const [selectedCord, setSelectedCords] = useState({
+    lat: undefined,
+    lon: undefined,
+    name: undefined,
+  });
   const [loading, setLoading] = useState(true);
   const [showSearch, setShowSearch] = useState(false);
 
@@ -24,19 +33,11 @@ const WeatherApp = () => {
     if (saved) {
       const favs = JSON.parse(saved);
       favs.forEach((fav, idx) => {
-        // fetchWeather(fav.lat, fav.log, fav.name).then((updated) => {
-          
-        //   setFavorites((prev) => {
-        //     const newFavs = [...prev];
-        //     newFavs[idx] = updated;
-        //     return newFavs;
-        //   });
-        // });
         setFavorites((prev) => {
-            const newFavs = [...prev];
-            newFavs[idx] = { lat: fav.lat, log:fav.log, name:fav.name};
-            return newFavs;
-          });
+          const newFavs = [...prev];
+          newFavs[idx] = { lat: fav.lat, log: fav.log, name: fav.name };
+          return newFavs;
+        });
       });
     }
   };
@@ -52,6 +53,7 @@ const WeatherApp = () => {
         async (position) => {
           const { latitude, longitude } = position.coords;
           await fetchWeather(latitude, longitude, "Current Location", true);
+          setCurrentCords({ lat: latitude, lon: longitude, name: "Current Location"})
           setLoading(false);
         },
         () => {
@@ -97,7 +99,7 @@ const WeatherApp = () => {
     }
   };
 
-    const removeFromFavorites = (index) => {
+  const removeFromFavorites = (index) => {
     const newFavorites = favorites.filter((_, i) => i !== index);
     saveFavorites(newFavorites);
   };
@@ -138,33 +140,63 @@ const WeatherApp = () => {
           </div>
         </div>
       </header>
-
-      <SearchCities favorites={favorites} setFavorites={setFavorites} showSearch={showSearch} setShowSearch={setShowSearch}/>
-
+      <SearchCities
+        favorites={favorites}
+        setFavorites={setFavorites}
+        showSearch={showSearch}
+        setShowSearch={setShowSearch}
+      />
       <main className="px-4 sm:px-6 lg:px-8 py-8 space-y-5">
-      <div className="flex md:flex-row flex-col gap-10 justify-between">
-      <div className="flex flex-col gap-3 md:w-4/6">
-        {currentWeather && (
-          <WeatherCard
-            weatherCode={currentWeather.weatherCode}
-            name={currentWeather.name}
-            temperature={currentWeather.temperature}
-            windSpeed={currentWeather.windSpeed}
-            humidity={currentWeather.humidity}
-            visibility={currentWeather.visibility}
-            pressure={currentWeather.pressure}
-            feelsLike={currentWeather.feelsLike}
-            maxTemp={currentWeather.maxTemp}
-            minTemp={currentWeather.minTemp}
-          />
-        )}
-      </div>
-      <div className="md:w-2/6">
-        <PopularCities />
-      </div>
-      </div>
-      <FavouriteCities favorites={favorites} removeFromFavorites={removeFromFavorites}/>
+        <div className="flex md:flex-row flex-col gap-10 justify-between">
+          <div className="flex flex-col gap-3 md:w-4/6">
+            {currentWeather && (
+              <WeatherCard
+                weatherCode={currentWeather.weatherCode}
+                name={currentWeather.name}
+                temperature={currentWeather.temperature}
+                windSpeed={currentWeather.windSpeed}
+                humidity={currentWeather.humidity}
+                visibility={currentWeather.visibility}
+                pressure={currentWeather.pressure}
+                feelsLike={currentWeather.feelsLike}
+                maxTemp={currentWeather.maxTemp}
+                minTemp={currentWeather.minTemp}
+                onClick={() => {
+                  setSelectedCords(currentCord);
+                  setIsWeatherInDetailOpen(true)
+                }}
+              />
+            )}
+          </div>
+          <div className="md:w-2/6">
+            <PopularCities
+              onClick={({ lat, lon, name }) => {
+                setSelectedCords({ lat, lon, name });
+                setIsWeatherInDetailOpen(true);
+              }}
+            />
+          </div>
+        </div>
+        <FavouriteCities
+          favorites={favorites}
+          removeFromFavorites={removeFromFavorites}
+          onClick={({ lat, lon, name }) => {
+            setSelectedCords({ lat, lon, name });
+            setIsWeatherInDetailOpen(true);
+          }}
+        />
       </main>
+      <WeatherDetailModal
+        isOpen={isWeatherInDetailOpen}
+        onClose={() => {
+          setIsWeatherInDetailOpen(false);
+        }}
+        lat={selectedCord?.lat}
+        lon={selectedCord?.lon}
+        name={selectedCord?.name}
+
+        // cords={{ lat: "40.7128", lon: "74.0060", name:"sample"}}
+      />
     </div>
   );
 };

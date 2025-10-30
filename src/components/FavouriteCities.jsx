@@ -2,9 +2,13 @@ import { Droplets, Heart, Wind, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getWeatherDescription, getWeatherEmoji, fetchWeather } from "./utils";
 
-export default function FavouriteCities({ favorites, removeFromFavorites }) {
+export default function FavouriteCities({
+  favorites,
+  removeFromFavorites,
+  onClick,
+}) {
   return (
-    <div>
+    <div className="mt-10">
       <div className="flex items-center gap-3 mb-6">
         <Heart className="w-5 h-5 text-red-400" />
         <h3 className="text-2xl font-bold">Favorite Cities</h3>
@@ -17,35 +21,39 @@ export default function FavouriteCities({ favorites, removeFromFavorites }) {
             log={fav.log}
             name={fav.name}
             key={idx}
-            removeFromFavorites={() => removeFromFavorites(idx)}
+            onClick={onClick}
           />
         ))}
         {favorites.length === 0 && (
-            <div className="flex justify-center w-full">
-          <div className="text-center py-16">
-            <div className="text-6xl mb-4">🌍</div>
-            <h3 className="text-2xl font-semibold mb-2 text-slate-300">
-              No Favorite Cities Yet
-            </h3>
-            <p className="text-slate-400 mb-6">
-              Add cities to quickly check their weather
-            </p>
-            <button
-              onClick={() => setShowSearch(true)}
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl transition-all duration-200 font-medium"
-            >
-              Add Your First City
-            </button>
-          </div>
-
+          <div className="flex justify-center w-full">
+            <div className="text-center py-16">
+              <div className="text-6xl mb-4">🌍</div>
+              <h3 className="text-2xl font-semibold mb-2 text-slate-300">
+                No Favorite Cities Yet
+              </h3>
+              <p className="text-slate-400 mb-6">
+                Add cities to quickly check their weather
+              </p>
+              <button
+                onClick={() => setShowSearch(true)}
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl transition-all duration-200 font-medium"
+              >
+                Add Your First City
+              </button>
             </div>
+          </div>
         )}
       </div>
     </div>
   );
 }
 
-const FavoriteCityWeatherCard = ({ lat, log, name, removeFromFavorites }) => {
+const FavoriteCityWeatherCard = ({
+  lat,
+  log,
+  name,
+  onClick,
+}) => {
   const [weatherData, setWeather] = useState({});
   const fetchWeatherData = async () => {
     const wData = await fetchWeather(lat, log, name);
@@ -55,13 +63,10 @@ const FavoriteCityWeatherCard = ({ lat, log, name, removeFromFavorites }) => {
     fetchWeatherData();
   }, []);
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-all duration-200 group relative">
-      <button
-        onClick={() => removeFromFavorites}
-        className="absolute top-4 right-4 p-2 bg-slate-800 hover:bg-red-500 rounded-lg transition-all duration-200 opacity-0 group-hover:opacity-100"
-      >
-        <X className="w-4 h-4" />
-      </button>
+    <div
+      onClick={() => onClick({ lat, lon:log, name })}
+      className="hover:cursor-pointer bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-all duration-200 group relative"
+    >
 
       <div className="flex items-start justify-between mb-4">
         <div>
