@@ -35,38 +35,6 @@ A beautiful, modern weather application built with React and Tailwind CSS that p
 - Hover effects and interactive elements
 - Clean, intuitive user interface
 
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/weather-app.git
-cd weather-app
-```
-
-2. Install dependencies:
-```bash
-npm install
-# or
-yarn install
-```
-
-3. Start the development server:
-```bash
-npm start
-# or
-yarn start
-```
-
-4. Open your browser and navigate to:
-```
-http://localhost:3000
-```
 
 ## 🌐 API Information
 
@@ -100,33 +68,6 @@ This application uses the **Open-Meteo API**, which is:
 - On first load, the app will request location permission
 - Allow location access to see weather for your current location
 - If denied, you can manually search and add cities
-
-## 🏗️ Project Structure
-
-```
-weather-app/
-├── src/
-│   ├── components/
-│   │   ├── WeatherApp.jsx          # Main app component
-│   │   └── WeatherDetailModal.jsx   # Detailed weather modal
-│   ├── App.js
-│   ├── index.js
-│   └── index.css
-├── public/
-│   └── index.html
-├── package.json
-├── tailwind.config.js
-└── README.md
-```
-
-## 🎨 Color Scheme
-
-The app uses a dark theme with the following primary colors:
-- **Background**: Slate-950 (#020617)
-- **Cards**: Slate-900 (#0f172a)
-- **Borders**: Slate-800 (#1e293b)
-- **Text**: White/Slate variants
-- **Accents**: Blue-500 to Cyan-500 gradient
 
 ## 🔐 Browser Permissions
 
